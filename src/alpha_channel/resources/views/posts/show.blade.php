@@ -2,7 +2,26 @@
 
 @section('content')
 <div class="container small">
-  <h1>話題を投稿</h1>
+    <h1>話題</h1>
+    <ul>
+        <li>話題　：　{{ $post['title'] }}</li>
+        <li>内容　：　{{ $post['content'] }}</li>
+    </ul>
+
+</div>
+
+<div class="container small">
+<h1>コメント</h1>
+    <ul>
+        @foreach($comments as $comment)
+        <li>{{ $comment['id'] }} - {{ $comment['content'] }}　good bad</li>
+        @endforeach
+    </ul>
+    </div>
+
+
+<div class="container small">
+  <h1>コメントを投稿</h1>
   <div>  
         @if ($errors->any())  
             <ul class="text-danger font-bold">  
@@ -12,15 +31,12 @@
             </ul>  
         @endif  
     </div>
-  <form action="./create" method="POST">
+  <form action="/comment/create/{{ $id }}" method="POST">
   @csrf
     <fieldset>
         <div class="form-group">
 
-            <label for="title">タイトル<span class="badge badge-danger ml-2">{{ __('必須') }}</span></label>
-            <input type="text" class="form-control" name="title" id="title">
-
-            <label for="content">説明<span class="badge badge-danger ml-2">{{ __('必須') }}</span></label>
+            <label for="content">コメント<span class="badge badge-danger ml-2">{{ __('必須') }}</span></label>
             <input type="text" class="form-control" name="content" id="content">
 
             <label>ID表示する</label>
@@ -41,4 +57,5 @@
     </fieldset>
   </form>
 </div>
+
 @endsection

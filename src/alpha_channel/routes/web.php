@@ -13,10 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'App\Http\Controllers\PostController@list');
+Route::get('show/{id}', 'App\Http\Controllers\PostController@show');
 
 Route::get('post/new', 'App\Http\Controllers\PostController@new');
 Route::post('post/create', 'App\Http\Controllers\PostController@create');
-Route::get('post/save', 'App\Http\Controllers\PostController@save');
+Route::post('post/save', 'App\Http\Controllers\PostController@save');
+
+Route::post('comment/create/{id}', 'App\Http\Controllers\CommentController@create');
+
+Route::post('like/{id}', 'App\Http\Controllers\LikeController@like');
+Route::post('like/{id}', 'App\Http\Controllers\LikeController@unlike');
+

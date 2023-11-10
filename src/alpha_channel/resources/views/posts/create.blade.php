@@ -2,8 +2,9 @@
 
 @section('content')
 <div class="container small">
-  <h1>確認画面</h1>
-  <form action="./create" method="POST">
+  <h1>投稿完了</h1>
+  <p>承認までは通常1時間程度お時間を頂いております</p>
+  <form action="./save" method="POST">
   @csrf
     <fieldset>
         <div class="form-group">
