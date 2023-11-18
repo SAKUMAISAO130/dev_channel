@@ -2,27 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CommentLike;
 use App\Models\Like;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class LikeController extends Controller
+class CommentLikeController extends Controller
 {
     public function like (Request $request, $id)
     {
         $ip_info = $this->getClientIpAddress();
 
         //DBにあるか（２回目のいいねか）
-        $result = Like::where([
-            'post_id' => $id,
+        $result = CommentLike::where([
+            'comment_id' => $id,
             'ip_address' => $ip_info,
             ])->get()->count();        
 
         //DBになければ１回目（登録する
         if (!$result) {
             //登録
-            Like::create([
-                'post_id' => $id,
+            CommentLike::create([
+                'comment_id' => $id,
                 'ip_address' => isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '',
                 'ip_address_x_forwarded' => isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : '',
                 'status' => 2, // 2:like 1unlike
@@ -36,7 +37,7 @@ class LikeController extends Controller
 
     public function likeCount (Request $request, $id)
     {
-        return Like::where('post_id', $id)->where('status', 2)->get()->count();        
+        return CommentLike::where('comment_id', $id)->where('status', 2)->get()->count();        
     }
 
     public function unlike (Request $request, $id)
@@ -44,16 +45,16 @@ class LikeController extends Controller
         $ip_info = $this->getClientIpAddress();
 
         //DBにあるか（２回目のいいねか）
-        $result = Like::where([
-            'post_id' => $id,
+        $result = CommentLike::where([
+            'comment_id' => $id,
             'ip_address' => $ip_info,
             ])->get()->count();        
 
         //DBになければ１回目（登録する
         if (!$result) {
             //登録
-            Like::create([
-                'post_id' => $id,
+            CommentLike::create([
+                'comment_id' => $id,
                 'ip_address' => isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '',
                 'ip_address_x_forwarded' => isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : '',
                 'status' => 1, // 2:like 1unlike
@@ -67,7 +68,7 @@ class LikeController extends Controller
 
     public function unlikeCount (Request $request, $id)
     {
-        return Like::where('post_id', $id)->where('status', 1)->get()->count();        
+        return CommentLike::where('comment_id', $id)->where('status', 1)->get()->count();        
     }
 
     private function getClientIpAddress() {

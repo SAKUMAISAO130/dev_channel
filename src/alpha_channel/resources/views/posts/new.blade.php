@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container small">
+
   <h1>話題を投稿</h1>
   <div>  
         @if ($errors->any())  

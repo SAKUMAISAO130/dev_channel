@@ -28,19 +28,36 @@ class PostController extends Controller
         // dd($request->query('title'));
         $post = $request->all();
 
-        $saveData = new post;
+        $saveData = new Post;
         $saveData->title = $request['title'];
         $saveData->content = $request['content'];
         $saveData->show_id_flag = $request['show_id_flag'];
         $saveData->ip_address = $request->ip();
-
         $saveData->save();
 
         return view('posts.create', compact('post'));
     }
 
+    public function save (Request $request)
+    {
+        $post = $request->all();
+        dd($post);
+
+        $saveData = new Post;
+        $saveData->title = $request['title'];
+        $saveData->content = $request['content'];
+        $saveData->show_id_flag = $request['show_id_flag'];
+        $saveData->ip_address = $request->ip();
+
+        dd($request);
+        dd($saveData->title);
+        $saveData->save();
+    }
+
+
     public function list (Request $request)
     {
+        // phpinfo();
         $posts = Post::get();
         return view('posts.list', compact('posts'));
 

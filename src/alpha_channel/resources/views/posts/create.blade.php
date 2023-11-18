@@ -4,8 +4,6 @@
 <div class="container small">
   <h1>投稿完了</h1>
   <p>承認までは通常1時間程度お時間を頂いております</p>
-  <form action="./save" method="POST">
-  @csrf
     <fieldset>
         <div class="form-group">
 
@@ -18,12 +16,10 @@
             <label>ID表示する</label>
             {{ $post['show_id_flag'] }}
             <div>
-                <button type="submit" class="btn btn-success">
-                    {{ __('登録') }}
-                </button>
+              <a href="/" class="btn btn-success btn-sm">TOPへ戻る<span class="badge">111</span></a>
+
             </div>
         </div>
     </fieldset>
-  </form>
-</div>
+s</div>
 @endsection
